@@ -1,0 +1,54 @@
+<extend name="Public:back"/>
+<block name="title">部门管理</block>
+<block name="content">
+<div class="layui-body">
+	<div class="site-tips">
+		<p>部门需根据项目实际需要进行设置（通常是创建一个项目负责组），并不需要按照公司组织架构进行细分</p>
+	</div>
+	<fieldset class="layui-elem-field layui-field-title">
+		<legend>添加部门</legend>
+	</fieldset>
+	<div class="layui-form">
+		<form id="addform">
+		<div class="layui-form-item">
+    		<label class="layui-form-label">部门名称</label>
+    		<div class="layui-input-inline">
+      			<input type="text" class="layui-input" name="dep_name" lay-verify="required"/>
+    		</div>
+ 		</div>
+ 		<div class="layui-form-item">
+    		<label class="layui-form-label">部门负责人</label>
+    		<div class="layui-input-inline">
+      			<select name="director" lay-search>
+      				<empty name="members">
+      					<option value="">无</option>
+      				<else/>
+      				<option value="">可输入搜索</option>
+      				<option value="0">不选</option>
+      				<volist name="members" id="vo">
+      					<option value="{$vo['id']}">{$vo['name']}</option>
+      				</volist>
+      				</empty>
+      			</select>
+    		</div>
+    		<div class="layui-form-mid layui-word-aux">非必选</div>
+ 		</div>
+ 		<!-- <div class="layui-form-item">
+    		<label class="layui-form-label">备注</label>
+    		<div class="layui-input-block wid810">
+      			<textarea class="layui-textarea" name="remark"></textarea>
+    		</div>
+ 		</div> -->
+ 		</form>
+  		<div class="layui-form-item">
+    		<div class="layui-input-block">
+      			<button class="layui-btn" type="button" data-url="{:U('saveAdd')}" data-reload="{:U('index')}" lay-submit lay-filter="saveBtn">提交</button>
+      			<button class="layui-btn layui-btn-primary returnBtn" type="button" data-reload="{:U('index')}">返回</button>
+    		</div>
+  		</div>		
+	</div>
+</div>
+</block>
+<block name="script">
+<js href="__PUBLIC__/js/Department/add.js"/>
+</block>

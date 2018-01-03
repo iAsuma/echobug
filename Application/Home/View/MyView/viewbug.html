@@ -1,0 +1,103 @@
+<extend name="Public:front"/>
+<block name="title">我的视图</block>
+<block name="content">
+<!--内容-->
+<div class="view-bug clearfix">
+	<div class="bug-container">
+		<div class="bug-tit">
+			<h3>{$bug['summary']}</h3>
+			<div class="tag">
+				<span>
+					<switch name="bug.weight">
+					<case value="1">加急</case>
+					<case value="2">优先</case>
+					<case value="3">严重</case>
+					<case value="4">一般</case>
+					<case value="5">细节</case>
+					</switch>
+				</span>
+				<span>{$bug['id']}</span>
+				<span>
+					<switch name="bug.status">
+					<case value="0">未处理</case>
+					<case value="1">已处理</case>
+					<case value="2">处理中</case>
+					<case value="-2">已关闭</case>
+					</switch>
+				</span>
+				<span>{$bug['create_time']|date='Y-m-d H:i:s', ###}</span>
+				<span>{$bug['fromname']}</span>
+			</div>
+			<div class="cont field-content">
+				{$bug['content']}
+			</div>
+		</div>
+		<if condition="$bug.toer_id eq $userid AND $bug.status eq 0">
+		<div class="layui-form">
+			已阅读，开始处理
+			<input type="checkbox" name="switch" lay-skin="switch">
+		</div>
+		</if>
+	</div>
+	<div class="bug-aside">
+		<div class="bug-code">
+			<h2><if condition="($bug.codename eq '' OR $bug.codename eq null)">{$bug['pname']}<else/>{$bug['codename']}</if></h2>
+			<div class="cont">
+				<p>
+					<label>项目模块：</label>
+					<span>{$bug['modname']}</span>
+				</p>
+				<if condition="($bug.status eq 0 OR $bug.status eq 2) AND $bug.note neq ''">
+				<p>
+					<label>内容更新：</label>
+					<span>{$bug['note']|date='Y-m-d H:i:s', ###}</span>
+				</p>
+				</if>
+				<p>
+					<label>处理人：</label>
+					<span>{$bug['toname']}</span>
+				</p>
+				<neq name="bug.toer_id" value="$bug.director_id">
+				<p>
+					<label>原负责人：</label>
+					<span>{$bug['mname']}</span>
+				</p>
+				</neq>
+				<p>
+					<label>测试环境：</label>
+					<span>{$bug['test_environment']}</span>
+				</p>
+				<neq name="bug.status" value="0">
+				<p>
+					<label>处理时间：</label>
+					<span>{$bug['finall_time']|date='Y-m-d H:i:s', ###}</span>
+				</p>
+				</neq>
+				<a href="{:U('MyView/index')}" class="layui-btn">返回视图</a>
+			</div>
+		</div>
+		<if condition="$bug.toer_id eq $userid OR $bug.fromer_id eq $userid">
+		<div class="bug-func">
+			<h3>功能</h3>
+			<div class="clearfix">
+				<if condition="($bug.toer_id eq $userid AND ($bug.status eq 0 OR $bug.status eq 2)) OR ($bug.fromer_id eq $userid AND $bug.status eq 0)">
+				<a href="javascript:;" class="">移交</a>
+				</if>
+				<if condition="$bug.toer_id eq $userid AND $bug.status eq 0">
+				<a href="javascript:;">关闭</a>
+				</if>
+				<if condition="$bug.fromer_id eq $userid">
+				<a href="javascript:;">删除</a>
+				</if>
+				<if condition="$bug.fromer_id eq $userid AND $bug.status eq 0">
+				<a href="javascript:;">修改</a>
+				</if>
+			</div>
+		</div>
+		</if>
+	</div>
+</div>
+</block>
+<block name="script">
+<js href="__PUBLIC__/js/MyView/viewbug.js"/>
+</block>

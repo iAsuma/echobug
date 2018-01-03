@@ -1,0 +1,93 @@
+<extend name="Public:back"/>
+<block name="title">BUG管理</block>
+<block name="content">
+<div class="layui-body">
+	<div class="layui-tab layui-tab-brief tab-brief">
+  		<ul class="layui-tab-title">
+		    <li class="layui-this">预览</li>
+  		</ul>
+	  	<div class="layui-tab-content">
+	  		<div class="layui-tab-item layui-show">
+	  			<fieldset class="layui-elem-field">
+					<legend><if condition="($bug.codename eq '' OR $bug.codename eq null)">{$bug['pname']}<else/>{$bug['codename']}</if></legend>
+					<div class="field-box">
+						<p>{$bug['summary']}</p>
+						<p>项目模块：{$bug['modname']}</p>
+						<p>反馈人：{$bug['fromname']}</p>
+						<p>权重：
+							<switch name="bug.weight">
+							<case value="1">加急</case>
+							<case value="2">优先</case>
+							<case value="3">严重</case>
+							<case value="4">一般</case>
+							<case value="5">细节</case>
+							</switch>
+						</p>
+						<p>反馈时间：{$bug['create_time']|date='Y-m-d H:i:s', ###} <if condition="($bug.status eq 0 OR $bug.status eq 2) AND $bug.note neq ''">（内容有更新：{$bug['note']|date='Y-m-d H:i:s', ###}）</if></p>
+						<p>处理人：{$bug['toname']}<neq name="bug.toer_id" value="$bug.director_id">（模块负责人：{$bug['mname']}）</neq></p>
+						<p>状态：
+							<switch name="bug.status">
+							<case value="0">未处理</case>
+							<case value="1">已处理</case>
+							<case value="2">处理中</case>
+							<case value="-2">已关闭</case>
+							</switch>
+							<neq name="bug.status" value="0">（处理时间：{$bug['finall_time']|date='Y-m-d H:i:s', ###}）</neq>
+						</p>
+						<eq name="bug.status" value="-2"><p>关闭理由：{$bug['note']}</p></eq>
+						<p>测试环境：{$bug['test_environment']}</p>
+					</div>
+					<eq name="bug.status" value="0">
+					<button class="layui-btn layui-btn-primary closeBtn" data-urla="{:U('closeBug')}">关闭</button>
+					</eq>
+				</fieldset>
+				
+				<eq name="bug.status" value="2">
+				<div class="site-aside">
+					处理完成，返回结果
+					<span class="layui-form">
+						<input type="checkbox" lay-skin="switch" name="status" value="1" lay-filter="changeStatus" autocomplete="off">
+					</span>
+				</div>
+				</eq>
+					
+				<div class="field-content">
+					{$bug['content']}
+				</div>
+				
+				<div class="site-aside bottom">
+					<if condition="$bug.status eq 0">
+					已阅读，开始处理
+					<span class="layui-form">
+						<input type="checkbox" lay-skin="switch" name="status" value="2" lay-filter="changeStatus" autocomplete="off">
+					</span>
+					<else/>
+					处理完成，返回结果
+					<span class="layui-form">
+						<input type="checkbox" lay-skin="switch" name="status" value="1" lay-filter="changeStatus" autocomplete="off">
+					</span>
+					</if>
+				</div>
+				
+				<button type="button" class="layui-btn layui-btn-primary return-btn returnBtn">返回</button>
+	  		</div>
+	  	</div>
+	  	<input type="hidden" name="commom" id="common" data-hash="{$ihash}" data-reload="{:U('index')}" data-url="{:U('changeStatus')}"/>
+	  	<input type="hidden" name="bugid" id="bugid" value="{$bug['id']}"/>
+	</div>  
+</div>
+</block>
+<block name="script">
+<js href="__PUBLIC__/js/BugUndone/viewbug.js"/>
+<script>
+	$('.layui-layout-admin').append('<ul class="layui-fixbar"><li class="layui-icon layui-fixbar-top">&#xe604;</li></ul>');
+	var $top = $('.layui-fixbar-top');
+	$top.on('click', function() {
+		$('.layui-body').animate({ scrollTop: 0 });
+	});
+	
+	$('.layui-body').scroll(function() {
+		$('.layui-body').scrollTop() > 100 ? $top.fadeIn() : $top.fadeOut();
+	});
+</script>
+</block>

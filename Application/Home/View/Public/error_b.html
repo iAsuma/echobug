@@ -1,0 +1,30 @@
+<extend name="Public:back"/>
+<block name="title">BUG管理</block>
+<block name="content">
+<style>
+.error-container{font-size:20px;color:#555;line-height:32px;text-align:center;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);-webkit-transform:translate(-50%,-50%)}
+.error-container em{font-style:normal;color:red}
+.error-container a{color:rgba(0,136,204,.8)}
+.error-container a:hover{color:#08c}
+</style>
+<div class="layui-body">
+	<div class="error-container">
+		<p>{$error}</p>
+		<p><em id="wait">{$waitSecond}</em> 秒后 <a id="href" href="{$jumpUrl}">返回</a></p>
+	</div>
+</div> 
+</block>
+<block name="script">
+<script type="text/javascript">
+(function(){
+var wait = document.getElementById('wait'),href = document.getElementById('href').href;
+var interval = setInterval(function(){
+	var time = --wait.innerHTML;
+	if(time <= 0) {
+		location.href = href;
+		clearInterval(interval);
+	};
+}, 1000);
+})();
+</script>
+</block>

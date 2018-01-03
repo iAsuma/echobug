@@ -1,0 +1,135 @@
+<extend name="Public:front"/>
+<block name="title">我的视图</block>
+<block name="content">
+<div class="view-box">
+	<div class="view-search">
+		<div class="search-inner">
+			<i class="iconfont">&#xe602;</i>
+			<input type="text" placeholder="搜索 ID"/>
+		</div>
+	</div>
+	<div class="view-content clearfix">
+		<div class="view-list" >
+			<notempty name="upper">
+			<ul>
+				<volist name="upper" id="vo">
+				<li>
+					<span class="img">
+						<img src="__PUBLIC__/img/tx_temp.jpg" />
+					</span>
+					<p class="name"><a href="{:U('viewbug', array('id' => $vo['id']))}"><em>[{$vo['id']}]</em>{$vo['summary']}</a></p>
+					<p class="tag">
+						<span>
+						<if condition="($vo.codename eq '' OR $vo.codename eq null)">{$vo['pname']}<else/>{$vo['codename']}</if>
+						</span>|
+						<span>{$vo['modname']}</span>|
+						<span>
+							<switch name="vo.weight">
+							<case value="1">加急</case>
+							<case value="2">优先</case>
+							<case value="3">严重</case>
+							<case value="4">一般</case>
+							<case value="5">细节</case>
+							</switch>
+						</span>|
+						<span>
+							<switch name="vo.status">
+							<case value="0">未处理</case>
+							<case value="1">已处理</case>
+							<case value="2">处理中</case>
+							<case value="-2">已关闭</case>
+							</switch>
+						</span>|
+						<span>
+						<if condition="$vo.status eq 0">
+								反馈时间：{$vo['create_time']|date='Y-m-d H:i:s', ###}
+							<elseif condition="$vo.status eq 2"/>
+								更新时间：{$vo['note']|date='Y-m-d H:i:s', ###}
+							<else/>
+								处理时间：{$vo['finall_time']|date='Y-m-d H:i:s', ###}
+							</if>
+						</span>
+					</p>
+				</li>
+				</volist>
+			</ul>
+			</notempty>
+			<ul class="" id="allbug" data-url="{:U('contentList')}" style="margin-bottom:52px;"></ul>
+			<!-- <button class="layui-btn layui-btn-primary">加载更多</button>
+			<div class="no-more">没有更多了</div> -->
+		</div>
+		<div class="view-aside" style="margin-top:0">
+			<button class="layui-btn" type="button" onclick="window.location.href = '{:U('feedback')}'">反馈BUG</button>
+			<div class="view-panel">
+				<h3>板块</h3>
+				<div class="choice clearfix">
+					<a href="javascript:;">已处理的</a>
+					<a href="javascript:;">未处理的</a>
+					<a href="javascript:;">我反馈的</a>
+					<a href="javascript:;">全部的</a>
+				</div>
+			</div>
+			<div class="view-img">
+				<a href="javascript:;">
+					<img src="__PUBLIC__/img/google.gif" />
+				</a>					
+			</div>
+			<div class="view-img">
+				<a href="javascript:;">
+					<img src="__PUBLIC__/img/300250.png" />
+				</a>					
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+layui.use(['element', 'form'], function(){
+  	var element = layui.element()
+  		,form = layui.form()
+  		,layer = layui.layer;
+  	var $about = $('#aboutUs');
+  	$about.on('click', function() {
+  		var html = '<div class="about-us"><div class="about-logo"><img src="img/about-logo.png"></div><div class="about-container"><p>首创论坛式阅读——巧妙的将论坛帖子的风格运用到了BUG管理系统，让原本枯燥乏味的工作，变成了愉悦的“逛着论坛”、“发着帖子”。</p><p>化繁为简 实用至上——去除了市面上同类型管理系统不必要的功能，只保留核心功能，降低了学习成本，提高了效率，一切变的那么简约，然而一切又似乎不那么简单。</p></div></div>';
+  		layer.open({
+  			content: html
+  			,type: 1
+  			,title: false
+  			,closeBtn: false
+		  	,area: '300px'
+		  	,btnAlign: 'c'
+		  	,btn: ['火速围观', '残忍拒绝']
+		});
+  	});
+  	
+  	
+  	//搜索
+  	var $search = $('.view-search i'),
+  		$input = $('.view-search input');
+  	$search.on('click', function() {
+  		var foc = function() {
+  				$('.view-search input').focus();
+  				$search.removeClass('hide').addClass('left');
+  			}
+  		$search.addClass('hide');
+  		$input.show().addClass('slideRightS').removeClass('slideRightH');
+  		setTimeout(foc,100);
+  	});
+  	$(document).bind("click",function(e){
+		var target = $(e.target);
+		if (target.closest(".search-inner").length == 0) {
+			var hid = function() {
+  				$('.view-search input').hide();
+  				$search.removeClass('left hide');
+  			}
+			$search.addClass('hide');
+			$input.removeClass('slideRightS').addClass('slideRightH');
+			setTimeout(hid,100);
+		}
+	});
+  	
+});
+</script>
+</block>
+<block name="script">
+<js href="__PUBLIC__/js/MyView/index.js"/>
+</block>

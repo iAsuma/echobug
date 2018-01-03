@@ -1,0 +1,53 @@
+<extend name="Public:back"/>
+<block name="title">模块管理</block>
+<block name="content">
+<div class="layui-body">
+	<fieldset class="layui-elem-field layui-field-title">
+		<legend>模块列表</legend>
+	</fieldset>
+	<div class="layui-form search-form">
+		<form id="formcondition">
+		<div class="layui-form-item">
+			<div class="layui-inline">
+				<label class="layui-form-label">模块名称</label>
+				<div class="layui-input-inline">
+					<input type="text" class="layui-input" name="mod_name"/>
+				</div>
+			</div>
+			<div class="layui-inline">
+		      	<label class="layui-form-label">项目</label>
+		      	<div class="layui-input-inline">
+			        <select name="project" placeholder="nihao">
+			        	<empty name="pjt">
+			        	<option value="">无</option>
+			        	<else/>
+			        	<option value="">可输入搜索</option>
+			        	<option value="">所有项目</option>
+			        	<volist name="pjt" id="vo">
+			        	<option value="{$vo['id']}">{$vo['name']}</option>
+			        	</volist>
+			        	</empty>
+			        </select>
+		     	 </div>
+		    </div>
+			<div class="layui-inline">
+				<label class="layui-form-label">负责人</label>
+				<div class="layui-input-inline">
+					<input type="text" class="layui-input" name="director"/>
+				</div>
+			</div>
+    		<div class="layui-inline">
+    			<button class="layui-btn mlbtn" type="button" id="searchBtn">搜索</button>
+    		</div>
+		</div>
+		<input type="hidden" name="currpage" value="" id="currpage"/>
+		</form>
+	</div>
+	<div class="layui-form"  data-url="{:U('moduleList')}" id="tablecontent"></div>
+	<div class="layui-page" id="Page"></div>
+	<input type="hidden" name="common_m" id="common_m" data-url="{:U('setting')}" data-urla="{:U('modifyModule')}" data-urlb="{:U('deleteModule')}"/>
+</div>
+</block>
+<block name="script">
+<js href="__PUBLIC__/js/Module/index.js"/>
+</block>

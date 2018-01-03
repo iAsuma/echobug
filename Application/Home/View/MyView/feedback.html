@@ -1,0 +1,81 @@
+<extend name="Public:front"/>
+<block name="title">我的视图</block>
+<block name="content">
+<!--内容-->
+<div class="feedback-bug">
+	<h1>反馈BUG</h1>
+	<div class="layui-form">
+		<form id="addform">
+		<div class="layui-form-item">
+    		<label class="layui-form-label">所属项目</label>
+    		<div class="layui-input-inline">
+      			<select name="project" lay-search lay-filter="projectChange" lay-verify="required">
+      				<empty name="pjt">
+      				<option value="">无</option>
+      				<else/>
+      				<option value="">可输入搜索</option>
+      				<volist name="pjt" id="vo">
+      				<option value="{$vo['id']}"><if condition="($vo.codename neq '') AND ($vo.codename neq null)">{$vo['codename']}<else/>{$vo['name']}</if></option>
+      				</volist>
+      				</empty>
+      			</select>
+    		</div>
+ 		</div>
+ 		<div class="layui-form-item">
+    		<label class="layui-form-label">所属模块</label>
+    		<div class="layui-input-inline" id="mod_sel">
+      			<select name="module" lay-search lay-filter="moduleChange" lay-verify="required">
+       				<option value="">无</option>
+      			</select>
+    		</div>
+ 		</div>
+ 		<div class="layui-form-item">
+    		<label class="layui-form-label">bug摘要</label>
+    		<div class="layui-input-block">
+      			<input type="text" class="layui-input" lay-verify="required" name="summary"/>
+    		</div>
+ 		</div>
+ 		<div class="layui-form-item">
+    		<label class="layui-form-label">测试环境</label>
+    		<div class="layui-input-block">
+      			<input type="text" class="layui-input" placeholder="例：macOS Sierra, 21.5', Firefox 59.0" lay-verify="required" name="test_environment"/>
+    		</div>
+ 		</div>
+ 		<div class="layui-form-item">
+    		<label class="layui-form-label">反馈给</label>
+    		<div class="layui-input-inline" id="mem_sel">
+      			<select name="director" lay-search lay-verify="required">
+       				<option value="">无</option>
+      			</select>
+    		</div>
+ 		</div>
+ 		<div class="layui-form-item">
+    		<label class="layui-form-label">权重</label>
+    		<div class="layui-input-block">
+      			<input type="radio" name="weight" title="加急" value="1"/>
+      			<input type="radio" name="weight" title="优先" value="2"/>
+      			<input type="radio" name="weight" title="严重" value="3"/>
+      			<input type="radio" name="weight" title="一般" value="4"/>
+      			<input type="radio" name="weight" title="细节" value="5"/>
+    		</div>
+  		</div>
+  		<div class="layui-form-item layui-form-text">
+    		<label class="layui-form-label">bug详情</label>
+    		<div class="layui-input-block" id="uploadinfo" data-url="{:U('UploadFile/textEditImg')}" data-uid="{$uid}" data-time="{$timestamp}" data-token="{:md5(C('UNIQUE_SALT_UPLOAD_KEY').$timestamp)}">
+      			<textarea class="layui-textarea layui-hide" name="content" lay-verify="content" id="editor_tool"></textarea>
+    		</div>
+  		</div>
+  		</form>
+  		<div class="layui-form-item">
+    		<div class="layui-input-block">
+      			<button type="button" class="layui-btn" data-url="{:U('saveAdd')}" data-reload="{:U('index')}" lay-submit lay-filter="saveBtn">提交</button>
+      			<button type="button" class="layui-btn layui-btn-primary"  onclick="window.location.href = '{:U('index')}'">返回</button>
+    		</div>
+  		</div>		
+	</div>
+	<input type="hidden" id="childselect" data-urla="{:U('moduleList')}" data-urlb="{:U('memberList')}"/>
+</div>
+</block>
+<block name="script">
+<js href="__PUBLIC__/js/MyView/feedback.js"/>
+</block>

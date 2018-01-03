@@ -1,0 +1,70 @@
+<table class="layui-table" data-page="{$pagecount}">
+	<colgroup>
+		<col width="7">
+		<col width="20">
+		<col width="11">
+		<col width="11">
+		<col width="11">
+		<col width="7">
+		<col width="15">
+		<col width="8">
+		<col width="10">
+	</colgroup>
+	<thead>
+		<tr>
+			<th>编号</th>
+			<th>bug摘要</th>
+			<th>所属模块</th>
+			<th>所属项目</th>
+			<th>处理人</th>
+			<th>权重</th>
+			<th>反馈时间</th>
+			<th>状态</th>
+			<th>操作</th>
+		</tr>
+	</thead>
+	<tbody>
+		<empty name="list">
+			<tr><td colspan="9" style="text-align:center;">暂无数据</td></tr>
+		<else/>
+		<volist name="list" id="vo">
+		<tr data-id="{$vo['id']}">
+			<td>{$vo['id']}</td>
+			<td class="details-content" data-title="{$vo['summary']}">{$vo['summary']}</td>
+			<td>{$vo['modname']}</td>
+			<td><if condition="($vo.codename eq '' OR $vo.codename eq null)">{$vo['pname']}<else/>{$vo['codename']}</if></td>
+			<td <neq name="vo.toer_id" value="$vo.director_id">class="mark-tips" data-title="原负责人：{$vo['mmname']}"</neq>>{$vo['mname']}</td>
+			<td>
+				<switch name="vo.weight">
+				<case value="1">加急</case>
+				<case value="2">优先</case>
+				<case value="3">严重</case>
+				<case value="4">一般</case>
+				<case value="5">细节</case>
+				</switch>
+			</td>
+			<td <if condition="($vo.status eq 0 OR $vo.status eq 2) AND $vo.note neq ''"> class="mark-tips" data-title="内容有更新：{$vo['note']|date='Y-m-d H:i:s', ###}"</if> >
+				{$vo['create_time']|date='Y-m-d H:i:s', ###}
+			</td>
+			<td <neq name="vo.status" value="0">class="mark-tips" data-title="处理时间：{$vo['finall_time']|date='Y-m-d H:i:s', ###}<eq name="vo.status" value="-2"><br/>关闭理由：{$vo['note']}</eq>"</neq> >
+				<switch name="vo.status">
+				<case value="0">未处理</case>
+				<case value="1">已处理</case>
+				<case value="2">处理中</case>
+				<case value="-2">已关闭</case>
+				</switch>
+			</td>
+			<td>
+				<a href="{:U('viewbug', array('id' => $vo['id'], 'hashpage' => $hashpage))}" title="查看"><i class="iconfont">&#xe605;</i></a>
+				<eq name="vo.status" value="0">
+				<a href="javascript:;" title="移交" class="change_btn"><i class="iconfont">&#xe608;</i></a>
+				<else/>
+				<a href="javascript:;" title="移交"><i class="iconfont iconfont-disabled">&#xe608;</i></a>
+				</eq>
+				<a href="javascript:;" title="删除" class="delete_btn"><i class="iconfont">&#xe639;</i></a>
+			</td>
+		</tr>
+		</volist>
+		</empty>
+	</tbody>
+</table>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+	<title><block name="title">标题</block></title>
+	<link href="__PUBLIC__/layui/css/layui.css" rel="stylesheet" />
+	<link href="__PUBLIC__/iconfont/iconfont.css" rel="stylesheet" />
+	<link href="__PUBLIC__/css/front.css" rel="stylesheet"/>
+	<script src="__PUBLIC__/js/jquery-1.9.1.min.js"></script>
+	<script src="__PUBLIC__/layui/layui.js"></script>
+</head>
+<body class="col-gray">
+	<div class="layui-layout-admin">
+		<!--头部-->
+		<div class="header-wp">
+			<div class="header-inner clearfix">
+				<a class="logo" href="{$indexurl}">
+					<img src="__PUBLIC__/img/logo-blue.png" />
+				</a>
+				<div class="nav">
+					<a href="{:U('Panel/index')}" <if condition="CONTROLLER_NAME eq Panel">class="current"</if>>面板</a>
+					<a href="{:U('MyView/index')}" <if condition="CONTROLLER_NAME eq MyView">class="current"</if>>我的视图</a>
+					<a href="javascript:;">关于</a>
+				</div>
+				<div class="nav-user">
+					<a href="javascript:;">
+						<img src="__PUBLIC__/img/tx_temp.jpg" />  &nbsp;{$uname}
+					</a>
+					<a href="{:U('BugUndone/index')}"><i class="iconfont">&#xe607;</i> 控制台</a>
+					<a href="{:U('Login/logout')}"><i class="iconfont">&#xe610;</i> 退了</a>
+				</div>
+			</div>	
+		</div>
+		
+		<!--内容-->
+		<block name="content">内容</block>
+		
+		<div class="footer">
+			<p>&copy;&nbsp;2017&nbsp;gotoecho.com</p>
+		</div>
+		<input type="hidden" id="hiddendom" name="hiddendom" value="0" data-public="__PUBLIC__"/>
+	</div>
+	
+	<script src="__PUBLIC__/js/asuma.js" type="text/javascript"></script>
+	<block name="script"></block>
+	<script>
+		$('.layui-layout-admin').append('<ul class="layui-fixbar"><li class="layui-icon layui-fixbar-top">&#xe604;</li></ul>');
+		var $top = $('.layui-fixbar-top'),$window = $(window);
+		$top.on('click', function() {
+			$('body, html').animate({ scrollTop: 0 });
+		});
+		$window.scroll(function() {
+			$window.scrollTop() > 100 ? $top.fadeIn() : $top.fadeOut();
+		});
+	</script>
+</body>
+</html>

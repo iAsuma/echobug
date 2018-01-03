@@ -1,0 +1,28 @@
+<style>
+.layui-layer-page .layui-layer-content{display:inline;overflow:inherit}
+.layui-layer-page .setting-cont .layui-layer-btn{display:inline-block;padding:0;vertical-align:middle}
+.setting-cont{padding:24px 18px 24px 30px}
+.setting-cont .layui-layer-btn a{margin:0 12px 0 0}
+.setting-cont .layui-form-select{display:inline-block;margin-right:26px;vertical-align:middle}
+.setting-cont .layui-form-select .layui-input{height:34px;line-height:34px}
+.setting-cont .layui-form-select dd{line-height:34px}
+.setting-cont .key{display:inline-block;line-height:34px}
+</style>
+<div class="layui-form setting-cont">
+	<span class="key">{$module.name}&nbsp;负责人：&nbsp;</span>
+	<select name="director" lay-search>
+		<empty name="members">
+			<option value="">无</option>
+		<else/>
+		<option value="">可输入搜索</option>
+		<volist name="members" id="vo">
+			<option value="{$vo['id']}" <eq name="vo.id" value="$module.director_id">selected</eq>>{$vo['name']}</option>
+		</volist>
+		</empty>
+	</select>
+	<input type="hidden" name="module_id" value="{$module.id}"/>
+	<div class="layui-layer-btn">
+		<a href="javascript:;" class="layui-layer-btn0" lay-submit lay-filter="saveBtn" data-url="{:U('setDirector')}">确定</a>
+		<a href="javascript:;" class="layui-layer-btn1">取消</a>
+	</div>
+</div>

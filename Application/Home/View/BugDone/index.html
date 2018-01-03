@@ -1,0 +1,66 @@
+<extend name="Public:back"/>
+<block name="title">BUG管理</block>
+<block name="content">
+<div class="layui-body">
+	<fieldset class="layui-elem-field layui-field-title">
+		<legend>已处理的</legend>
+	</fieldset>
+	<div class="layui-form search-form">
+		<div class="layui-form-item">
+		<form id="formcondition">
+			<div class="layui-inline">
+				<label class="layui-form-label">编号</label>
+				<div class="layui-input-inline">
+					<input type="text" class="layui-input" name="bugid"/>
+				</div>
+			</div>
+			<div class="layui-inline">
+		      	<label class="layui-form-label">项目</label>
+		      	<div class="layui-input-inline">
+			        <select name="project" lay-search>
+			        	<empty name="pjt">
+			        		<option value="">无</option>
+			        	<else/>
+			        		<option value="">可输入搜索</option>
+			        		<option value="">所有项目</option>
+			        		<volist name="pjt" id="vo">
+			        		<option value="{$vo['id']}"><if condition="($vo.codename neq '') AND ($vo.codename neq null)">{$vo['codename']}<else/>{$vo['name']}</if></option>
+			        		</volist>
+			        	</empty>
+			        </select>
+		     	 </div>
+		    </div>
+			<div class="layui-inline">
+				<label class="layui-form-label">反馈人</label>
+				<div class="layui-input-inline">
+					<input type="text" class="layui-input" name="director"/>
+				</div>
+			</div>
+			<div class="layui-inline">
+		      	<label class="layui-form-label">权重</label>
+		      	<div class="layui-input-inline">
+			        <select name="weight">
+			        	<option value=""></option>
+			        	<option value="">所有</option>
+			          	<option value="1">加急</option>
+			          	<option value="2">优先</option>
+			          	<option value="3">严重</option>
+			          	<option value="4">一般</option>
+			          	<option value="5">细节</option>
+			        </select>
+		     	 </div>
+		    </div>
+    		<div class="layui-inline">
+    			<button class="layui-btn mlbtn" type="button" id="searchBtn">搜索</button>
+    		</div>
+    		<input type="hidden" name="currpage" value="" id="currpage"/>
+    	</form>
+		</div>
+	</div>
+	<div class="layui-form" data-url="{:U('doneList')}" id="tablecontent"></div>
+	<div class="layui-page" id="Page"></div>
+</div>
+</block>
+<block name="script">
+<js href="__PUBLIC__/js/BugDone/index.js"/>
+</block>
