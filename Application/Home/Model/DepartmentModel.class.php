@@ -1,8 +1,6 @@
 <?php
 namespace Home\Model;
 class DepartmentModel extends PublicModel{
-    protected $autoCheckFields = false;
-    
     /**
      * 部门总数
      */

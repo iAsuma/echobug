@@ -1,8 +1,6 @@
 <?php
 namespace Home\Model;
 class MyViewModel extends PublicModel{
-    protected $autoCheckFields = false;
-    
     /**
      * 上部分的 五条数据 --未处理的
      */

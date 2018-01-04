@@ -1,8 +1,6 @@
 <?php
 namespace Home\Model;
 class BugAllModel extends PublicModel{
-    protected $autoCheckFields = false;
-    
     /**
      * 所有的bug 总数
      */

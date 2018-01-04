@@ -1,8 +1,6 @@
 <?php
 namespace Home\Model;
 class LoginModel extends PublicModel{
-	protected $autoCheckFields = false;
-	
     /**
      * 判断是否登录
      */

@@ -1,8 +1,6 @@
 <?php
 namespace Home\Model;
 class BugUndoneModel extends PublicModel{
-    protected $autoCheckFields = false;
-    
     /**
      * 所有项目
      */

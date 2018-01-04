@@ -1,8 +1,6 @@
 <?php
 namespace Home\Model;
 class ProjectModel extends PublicModel{
-    protected $autoCheckFields = false;
-    
     /**
      * 项目总数
      */

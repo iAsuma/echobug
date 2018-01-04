@@ -1,8 +1,6 @@
 <?php
 namespace Home\Model;
 class StaffModel extends PublicModel{
-    protected $autoCheckFields = false;
-    
     /**
      * 所有部门信息
      */

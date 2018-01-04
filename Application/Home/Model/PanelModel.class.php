@@ -1,8 +1,6 @@
 <?php
 namespace Home\Model;
 class PanelModel extends PublicModel{
-    protected $autoCheckFields = false;
-    
     /**
      * 正则进行的项目
      */

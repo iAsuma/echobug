@@ -1,8 +1,6 @@
 <?php
 namespace Home\Model;
 class ModuleModel extends PublicModel{
-    protected $autoCheckFields = false;
-    
     /**
      * 模块总数
      */
