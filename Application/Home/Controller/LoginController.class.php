@@ -48,7 +48,9 @@ class LoginController extends Controller{
     {
         $Verify = new \Think\Verify();
         $Verify->seKey = "GOTOECHO.COM";
-        $Verify->fontSize = 60;
+        $Verify->fontSize = 12;
+        $Verify->imageW = 100;
+        $Verify->imageH = 36;
         echo $Verify->entry();
     }
 
@@ -57,7 +59,6 @@ class LoginController extends Controller{
     {
         $Verify = new \Think\Verify();
         $Verify->seKey = "GOTOECHO.COM";
-        $Verify->fontSize = 60;
         return $Verify->check($code);
     }
 }

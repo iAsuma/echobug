@@ -52,13 +52,11 @@ layui.use(['element', 'form','asuma'], function(){
   	});
 	
 	form.on('switch(changeStatus)', function(data){
-		console.log(data);
   		var subObj = $(this);
   		if(data.elem.checked == true){
   			$.post($('#common').data('url'), {id:$('#bugid').val(),status:data.value}, function(code){
   				form.render('checkbox');
 	  			if(code == 1){
-	  				layer.msg('状态已回应');
 	  				if(data.value == 1){
 	  					window.location.href = func.url();
 	  				}else{
