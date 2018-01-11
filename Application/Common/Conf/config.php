@@ -1,7 +1,7 @@
 <?php
 return array(	
 	//'配置项'=>'配置值'
-	'URL_MODEL' => 1,
+	'URL_MODEL' => 2,
 	'SESSION_AUTO_START' => true,
     'URL_CASE_INSENSITIVE' => true,
 	'LOAD_EXT_CONFIG' => 'db',
