@@ -29,7 +29,7 @@ class UploadFileController extends Controller{
     }
     
     private function _upload($file, $allowExt, $path = '') {
-        import("ORG.Util.UploadFile");
+        import("Org.Util.UploadFile");
         $upload = new \UploadFile();
         //设置上传文件大小
         $upload->maxSize = 1024*1024*1024;
