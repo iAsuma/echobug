@@ -66,6 +66,6 @@ class UploadFileController extends Controller{
     private function echoMsg($msg){
         $content = json_encode($msg, JSON_UNESCAPED_SLASHES);
         !is_dir('/asuma/') && mkdir('/asuma/', 0777, true);
-        file_put_contents('/asuma/toolimg.log', $content."\r\n",FILE_APPEND);
+        file_put_contents('/asuma/toolimg.log', $content."\r\n", FILE_APPEND);
     }
 }
