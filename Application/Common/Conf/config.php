@@ -17,7 +17,7 @@ return array(
     'IS_HTTPS' => 0, //0为http, 1为https
     'DOMAIN_NAME' => '',//默认跳转首页的域名(不包含http://或https://)
     
-    'UPLOAD_TYPE' => 1, //文件上传方式 1为本地或服务器，2为阿里云OSS
+    'UPLOAD_TYPE' => 2, //文件上传方式 1为本地或服务器，2为阿里云OSS
     'UNIQUE_SALT_UPLOAD_KEY' => 'unique_salt',
     'UPLOAD_FILE_PATH' => 'E:/www/res/bugmini/', // 上传文件路径
     'UPLOAD_FILE_URL' => 'http://image.haiyunx.com', // 远程访问的域名  //本地 --http://192.168.0.105/res/bugmini
