@@ -39,7 +39,7 @@ class EntranceController extends Controller{
         $this->assign('uname', $this->uname);
     }
     
-    protected function jump($message='', $type, $jumpUrl='',$ajax=false){
+    protected function jump($message='', $type, $jumpUrl='', $ajax=false){
         if($type == 'error_b'){
             C('TMPL_ACTION_ERROR', 'Public:error_b');
         }
