@@ -44,7 +44,7 @@ class MyViewController extends EntranceController{
         $model = D('MyView');
         $mysend_count = $model -> getMySendBugCount($this->uid);
         $mysend = $model -> getMySendBugList($this->uid);
-        //pr($mysend);die;
+        
         if($this->utype == 2 || $this->utype == 3){
             $mark = 1;
         }else{
