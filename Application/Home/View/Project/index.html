@@ -1,0 +1,53 @@
+<extend name="Public:back"/>
+<block name="title">项目管理</block>
+<block name="content">
+<div class="layui-body">
+	<fieldset class="layui-elem-field layui-field-title">
+		<legend>项目列表</legend>
+	</fieldset>
+	<div class="layui-form search-form">
+		<form id="formcondition">
+		<div class="layui-form-item">
+			<div class="layui-inline">
+				<label class="layui-form-label">项目</label>
+				<div class="layui-input-inline">
+					<input type="text" class="layui-input" placeholder="名称或代号" name="pname"/>
+				</div>
+			</div>
+			<div class="layui-inline">
+		      	<label class="layui-form-label">状态</label>
+		      	<div class="layui-input-inline">
+			        <select name="status">
+			          	<option value=""></option>
+			          	<option value="">所有状态</option>
+			          	<option value="0">待开发</option>
+			          	<option value="1">开发中</option>
+			          	<option value="2">测试中</option>
+			          	<option value="3">已上线</option>
+			          	<option value="-2">已暂停</option>
+			          	<option value="-3">已关闭</option>
+			        </select>
+		     	 </div>
+		    </div>
+			<div class="layui-inline">
+				<label class="layui-form-label">负责人</label>
+				<div class="layui-input-inline">
+					<input type="text" class="layui-input" name="director"/>
+				</div>
+			</div>
+    		<div class="layui-inline">
+    			<button class="layui-btn mlbtn" type="button" id="searchBtn">搜索</button>
+    		</div>
+		</div>
+		<input type="hidden" name="currpage" value="" id="currpage"/>
+		</form>
+	</div>
+	
+	<div class="layui-form" data-url="{:U('projectList')}" id="tablecontent"></div>
+	<div class="layui-page" id="Page"></div>
+	<input type="hidden" name="common_p" id="common_p" data-urla="{:U('setting')}" data-urlb="{:U('deleteProject')}"/>
+</div>
+</block>
+<block name="script">
+<js href="__PUBLIC__/js/Project/index.js"/>
+</block>

@@ -1,0 +1,86 @@
+<extend name="Public:back"/>
+<block name="title">项目管理</block>
+<block name="content">
+<!--内容-->
+<div class="layui-body">
+	<fieldset class="layui-elem-field layui-field-title">
+		<legend>新增项目</legend>
+	</fieldset>
+	<div class="layui-form">
+		<form id="addform">
+		<div class="layui-form-item">
+    		<label class="layui-form-label">项目名称</label>
+    		<div class="layui-input-inline">
+      			<input type="text" class="layui-input" name="project_name" value="" lay-verify="required"/>
+    		</div>
+ 		</div>
+ 		<div class="layui-form-item">
+    		<label class="layui-form-label">内部代号</label>
+    		<div class="layui-input-inline">
+      			<input type="text" class="layui-input" name="code_name" value=""/>
+    		</div>
+    		<div class="layui-form-mid layui-word-aux">给项目起个犀利的代号，例如：“猎鹰”，“冥王星”等；可为空</div>
+ 		</div>
+ 		<div class="layui-form-item">
+    		<label class="layui-form-label">名称可见</label>
+    		<div class="layui-input-inline">
+      			<input type="radio" name="isview" value="1" title="公开" checked />
+      			<input type="radio" name="isview" value="2" title="部门可见" />
+    		</div>
+    		<div class="layui-form-mid layui-word-aux">若仅部门可见，代号不能为空，部门外则仅显示代号且名称显示为“密”</div>
+ 		</div>
+		<div class="layui-form-item">
+    		<label class="layui-form-label">所属部门</label>
+    		<div class="layui-input-inline" id="dpt_sel" data-url="{:U('memberlist')}">
+    			<eq name="utype" value="0">
+	    			<select name="department" class="takedpt" lay-filter="departChange" lay-verify="required">
+	    				<volist name="depart" id="vo">
+	    				<option value="{$vo['id']}">{$vo['name']}</option>
+	    				</volist>
+	      			</select>
+    			<else/>
+    				<input type="text" class="layui-input" name="department_name" value="{$depart['name']}" disabled/>
+    				<input type="hidden" name="department" class="takedpt" value="{$depart['id']}"/>
+    			</eq>
+    		</div>
+ 		</div>
+ 		<div class="layui-form-item">
+    		<label class="layui-form-label">项目负责人</label>
+    		<div class="layui-input-inline" id="director_sel">
+      			<select name="director" lay-verify="required">
+      				<option value="">无</option>
+      			</select>
+    		</div>
+ 		</div>
+ 		<div class="layui-form-item">
+    		<label class="layui-form-label">开始时间</label>
+    		<div class="layui-input-inline">
+      			<input type="text" class="layui-input" name="startdate" id="startdate" readonly lay-verify="required"/>
+    		</div>
+ 		</div>
+ 		<div class="layui-form-item">
+    		<label class="layui-form-label">结束时间</label>
+    		<div class="layui-input-inline">
+      			<input type="text" class="layui-input" name="enddate" id="enddate" readonly lay-verify="required"/>
+    		</div>
+    		<div class="layui-form-mid layui-word-aux">预计开发结束时间，给项目定一个期限，对系统来说暂时无作用，但也是必填项；正式上线后请设置为实际结束时间</div>
+ 		</div>
+ 		<div class="layui-form-item">
+    		<label class="layui-form-label">项目描述</label>
+    		<div class="layui-input-block wid810">
+      			<textarea class="layui-textarea" name="description"></textarea>
+    		</div>
+ 		</div>
+ 		</form>
+  		<div class="layui-form-item">
+    		<div class="layui-input-block">
+      			<button type="button" class="layui-btn" data-url="{:U('saveAdd')}" data-reload="{:U('index')}" lay-submit lay-filter="saveBtn">提交</button>
+      			<button type="button" class="layui-btn layui-btn-primary" onclick="window.location.href = '{:U('index')}'">返回</button>
+    		</div>
+  		</div>		
+	</div>
+</div>
+</block>
+<block name="script">
+<js href="__PUBLIC__/js/Project/add.js"/>
+</block>

@@ -1,0 +1,66 @@
+<extend name="Public:back"/>
+<block name="title">BUG管理</block>
+<block name="content">
+<div class="layui-body">
+	<fieldset class="layui-elem-field layui-field-title">
+		<legend>全部的BUG</legend>
+	</fieldset>
+	<div class="layui-form search-form">
+		<div class="layui-form-item">
+		<form id="formcondition">
+			<div class="layui-inline">
+				<label class="layui-form-label">编号</label>
+				<div class="layui-input-inline">
+					<input type="text" class="layui-input" />
+				</div>
+			</div>
+			<div class="layui-inline">
+		      	<label class="layui-form-label">项目</label>
+		      	<div class="layui-input-inline">
+			        <select>
+			          	<option value=""></option>
+			        </select>
+		     	 </div>
+		    </div>
+			<div class="layui-inline">
+				<label class="layui-form-label">处理人</label>
+				<div class="layui-input-inline">
+					<input type="text" class="layui-input" />
+				</div>
+			</div>
+			<div class="layui-inline">
+		      	<label class="layui-form-label">权重</label>
+		      	<div class="layui-input-inline">
+			        <select>
+			          	<option value=""></option>
+			        </select>
+		     	 </div>
+		    </div>
+			<div class="layui-inline">
+      			<label class="layui-form-label">反馈时间</label>
+      			<div class="layui-input-inline">
+        			<input type="text" class="layui-input" onclick="layui.laydate({elem: this})">
+     		 	</div>
+    		</div>
+    		<div class="layui-inline">
+		      	<label class="layui-form-label">状态</label>
+		      	<div class="layui-input-inline">
+			        <select>
+			          	<option value=""></option>
+			        </select>
+		     	 </div>
+		    </div>
+    		<div class="layui-inline">
+    			<button class="layui-btn mlbtn" type="button" id="searchBtn">搜索</button>
+    		</div>
+    		<input type="hidden" name="currpage" value="" id="currpage"/>
+    	</form>
+		</div>
+	</div>
+	<div class="layui-form" data-url="{:U('allList')}" id="tablecontent"></div>
+	<div class="layui-page" id="Page"></div>
+</div>
+</block>
+<block name="script">
+<js href="__PUBLIC__/js/BugAll/index.js"/>
+</block>

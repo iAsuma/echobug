@@ -1,0 +1,40 @@
+<volist name="allbug" id="vo">
+<li data-page="{$pagecount}">
+	<span class="img">
+		<img src="__PUBLIC__/img/tx_temp.jpg" />
+	</span>
+	<p class="name"><a href="{:U('viewbug', array('id' => $vo['id']))}"><em>[{$vo['id']}]</em>{$vo['summary']}</a></p>
+	<p class="tag">
+		<span>
+		<if condition="($vo.codename eq '' OR $vo.codename eq null)">{$vo['pname']}<else/>{$vo['codename']}</if>
+		</span>|
+		<span>{$vo['modname']}</span>|
+		<span>
+			<switch name="vo.weight">
+			<case value="1">加急</case>
+			<case value="2">优先</case>
+			<case value="3">严重</case>
+			<case value="4">一般</case>
+			<case value="5">细节</case>
+			</switch>
+		</span>|
+		<span>
+			<switch name="vo.status">
+			<case value="0">未处理</case>
+			<case value="1">已处理</case>
+			<case value="2">处理中</case>
+			<case value="-2">已关闭</case>
+			</switch>
+		</span>|
+		<span>
+		<if condition="$vo.status eq 0">
+				反馈时间：{$vo['create_time']|date='Y-m-d H:i:s', ###}
+			<elseif condition="$vo.status eq 2"/>
+				更新时间：{$vo['note']|date='Y-m-d H:i:s', ###}
+			<else/>
+				处理时间：{$vo['finall_time']|date='Y-m-d H:i:s', ###}
+			</if>
+		</span>
+	</p>
+</li>
+</volist>

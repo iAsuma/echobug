@@ -1,0 +1,21 @@
+<extend name="Public:back"/>
+<block name="title">部门管理</block>
+<block name="content">
+<div class="layui-body">
+	<div class="site-tips">
+		<p>部门需根据项目实际需要进行设置（通常是创建一个项目负责组），并不需要按照公司组织架构进行细分</p>
+	</div>
+	<fieldset class="layui-elem-field layui-field-title">
+		<legend>部门列表</legend>
+	</fieldset>
+	<form id="formcondition">
+		<input type="hidden" name="currpage" value="" id="currpage"/>
+	</form>
+	<div class="layui-form" data-url="{:U('departmentList')}" id="tablecontent"></div>
+	<div class="layui-page" id="Page"></div>
+	<input type="hidden" name="common_d" id="common_d" data-url="{:U('setting')}" data-urla="{:U('modifyDepartment')}" data-urlb="{:U('deleteDepartment')}"/>
+</div>
+</block>
+<block name="script">
+<js href="__PUBLIC__/js/Department/index.js"/>
+</block>

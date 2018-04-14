@@ -1,0 +1,115 @@
+<extend name="Public:back"/>
+<block name="title">成员管理</block>
+<block name="content">
+<div class="layui-body">
+	<div class="site-tips">
+		<p>成员属性与级别并未按照实际职务大小而是根据本系统实际需要进行设置</p>
+	</div>
+	<fieldset class="layui-elem-field layui-field-title">
+		<legend>修改成员信息</legend>
+	</fieldset>
+	<div class="layui-form">
+		<form id="addform">
+		<div class="layui-form-item">
+    		<label class="layui-form-label">姓名</label>
+    		<div class="layui-input-inline">
+      			<input type="text" class="layui-input" name="member_name"  lay-verify="required" value="{$member['name']}"/>
+    		</div>
+ 		</div>
+ 		<div class="layui-form-item">
+    		<label class="layui-form-label">账号</label>
+    		<div class="layui-input-inline">
+    			<eq name="member.type" value="0">
+    			<input type="text" class="layui-input" name="member_account" value="{$member['login_name']} " disabled/>
+    			<else/>
+    			<input type="text" class="layui-input" name="member_account" lay-verify="required|<empty name='emailpos'>email</empty>" value="{$member['login_name']}"/>
+    			</eq>
+    		</div>
+    		<neq name="member.type" value="0">
+    		<div class="layui-form-mid layui-word-aux">仅支持邮箱账号</div>
+    		</neq>
+ 		</div>
+ 		<div class="layui-form-item">
+    		<label class="layui-form-label">密码</label>
+    		<div class="layui-input-inline">
+      			<input type="checkbox" name="pwd_reset" lay-skin="switch" lay-text="重置|不变" value="1">
+    		</div>
+    		<div class="layui-form-mid layui-word-aux">密码开启重置后，密码默认重置为<empty name="repwd">123456<else/>{$repwd}</empty>；单次修改有效，请谨慎开启</div>
+ 		</div>
+ 		<div class="layui-form-item">
+    		<label class="layui-form-label">部门</label>
+    		<div class="layui-input-inline">
+    			<eq name="member.type" value="0">
+    			<input type="text" class="layui-input" name="" value="" disabled/>
+    			<input type="hidden" name="department" value="{$member['department_id']}"/>
+    			<else/>
+    			<select lay-verify="required" lay-search name="department">
+       				<option value=""></option>
+       				<volist name="dpat" id="vo">
+		        		<option value="{$vo['id']}" <eq name="vo.id" value="$member.department_id">selected</eq> >{$vo['name']}</option>
+		        	</volist>
+      			</select>
+    			</eq>
+    		</div>
+ 		</div>
+ 		<div class="layui-form-item">
+    		<label class="layui-form-label">属性</label>
+    		<div class="layui-input-inline">
+    			<eq name="member.type" value="0">
+    			<input type="text" class="layui-input" name="" value="管理员 " disabled/>
+    			<input type="hidden" name="member_type" value="{$member['type']}"/>
+    			<else/>
+    			<select lay-verify="required" name="member_type">
+		          	<option value="1" <eq name="member.type" value="1">selected</eq> >产品</option>
+		          	<option value="2" <eq name="member.type" value="2">selected</eq> >设计</option>
+		          	<option value="3" <eq name="member.type" value="3">selected</eq> >开发</option>
+		          	<option value="4" <eq name="member.type" value="4">selected</eq> >测试</option>
+		          	<option value="5" <eq name="member.type" value="5">selected</eq> >普通</option>
+      			</select>
+    			</eq>
+    		</div>
+ 		</div>
+ 		<div class="layui-form-item">
+    		<label class="layui-form-label">职称</label>
+    		<div class="layui-input-inline">
+      			<input type="text" class="layui-input" lay-verify="required" name="member_job" value="{$member['job']}"/>
+    		</div>
+ 		</div>
+ 		<div class="layui-form-item">
+    		<label class="layui-form-label">电话</label>
+    		<div class="layui-input-inline">
+      			<input type="text" class="layui-input" lay-verify="required|phone" name="cellphone" value="{$member['cellphone']}"/>
+    		</div>
+    		<div class="layui-form-mid layui-word-aux">仅支持手机号</div>
+ 		</div>
+ 		<div class="layui-form-item">
+    		<label class="layui-form-label">QQ</label>
+    		<div class="layui-input-inline">
+      			<input type="text" class="layui-input" name="qq" value="{$member['qq']}"/>
+    		</div>
+    		<div class="layui-form-mid layui-word-aux">非必填</div>
+ 		</div>		
+ 		<div class="layui-form-item">
+    		<label class="layui-form-label">级别</label>
+    		<div class="layui-input-block">
+    			<foreach name="lvl" item="vo">
+    				<input type="radio" name="level" value="{$vo.id}" title="{$vo.name}" data-tips="{$vo.tips}" lay-filter="levelsel" <eq name="vo.id" value="$member.level">checked</eq> <if condition="($ulevel neq 0 AND $ulevel egt $vo['id']) OR ($member.type eq 0)">disabled</if> />
+    			</foreach>
+    		</div>
+    		<div class="tips-select"></div>
+ 		</div>
+ 		<input type="hidden" name="member_id" value="{$member['id']}"/>
+ 		</form>
+  		<div class="layui-form-item">
+    		<div class="layui-input-block">
+      			<button type="button" class="layui-btn" data-url="{:U('modifyMember')}" lay-submit lay-filter="saveBtn">提交</button>
+      			<button type="button" class="layui-btn layui-btn-primary returnBtn">返回</button>
+    		</div>
+  		</div>
+	</div>
+	<input type="hidden" name="commom" id="common" data-hash="{$ihash}" data-reload="{:U('index')}"/>
+</div>
+</block>
+<block name="script">
+<js href="__PUBLIC__/js/Staff/details.js"/>
+</block>

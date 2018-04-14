@@ -1,0 +1,76 @@
+<extend name="Public:back"/>
+<block name="title">成员管理</block>
+<block name="content">
+<div class="layui-body">
+	<div class="site-tips">
+		<p>成员属性与级别并未按照实际职务大小而是根据本系统实际需要进行设置</p>
+	</div>
+	<fieldset class="layui-elem-field layui-field-title">
+		<legend>成员列表</legend>
+	</fieldset>
+	<div class="layui-form search-form">
+		<form id="formcondition">
+		<div class="layui-form-item">
+			<div class="layui-inline">
+				<label class="layui-form-label">成员姓名</label>
+				<div class="layui-input-inline">
+					<input type="text" class="layui-input" name="member_name"/>
+				</div>
+			</div>
+			<div class="layui-inline">
+		      	<label class="layui-form-label">部门</label>
+		      	<div class="layui-input-inline">
+			        <select name="department" lay-search>
+			        	<option value="">可输入搜索</option>
+			        	<option value="">所有部门</option>
+			        	<volist name="dpat" id="vo">
+			        		<option value="{$vo['id']}">{$vo['name']}</option>
+			        	</volist>
+			        </select>
+		     	 </div>
+		    </div>
+			<div class="layui-inline">
+				<label class="layui-form-label">属性</label>
+				<div class="layui-input-inline">
+					<select name="type">
+			          	<option value=""></option>
+			          	<option value="">所有属性</option>
+			          	<option value="0">管理员</option>
+			          	<option value="1">产品</option>
+			          	<option value="2">设计</option>
+			          	<option value="3">开发</option>
+			          	<option value="4">测试</option>
+			          	<option value="5">普通</option>
+			        </select>
+				</div>
+			</div>
+			<div class="layui-inline">
+		      	<label class="layui-form-label">级别</label>
+		      	<div class="layui-input-inline">
+			        <select name="level">
+			          	<option value=""></option>
+			          	<option value="">所有级别</option>
+			          	<option value="0">系统</option>
+			          	<option value="1">一级</option>
+			          	<option value="2">二级</option>
+			          	<option value="3">三级</option>
+			          	<option value="4">四级</option>
+			        </select>
+		     	 </div>
+		   	</div>
+    		<div class="layui-inline">
+    			<button class="layui-btn mlbtn" type="button" id="searchBtn">搜索</button>
+    		</div>
+		</div>
+		<input type="hidden" name="currpage" value="" id="currpage"/>
+		</form>
+	</div>
+	
+	<div class="layui-form" data-url="{:U('staffList')}" id="tablecontent"></div>
+	<div class="layui-page" id="Page"></div>
+	<input type="hidden" name="common_s" id="common_s" data-urla="{:U('setStaffLevel')}" data-urlb="{:U('deleteStaff')}"/>
+</div>
+</block>
+<block name="script">
+<js href="__PUBLIC__/js/Staff/index.js"/>
+</block>

@@ -1,0 +1,34 @@
+<table class="layui-table"  data-page="{$pagecount}">
+	<colgroup>
+		<col width="25">
+		<col width="25">
+		<col width="25">
+		<col width="25">
+	</colgroup>
+	<thead>
+		<tr>
+			<th>模块名称</th>
+			<th>模块负责人</th>
+			<th>所属项目</th>
+			<th>操作</th>
+		</tr>
+	</thead>
+	<tbody>
+		<empty name="list">
+			<tr><td colspan="4" style="text-align:center">暂无模块</td></tr>
+		<else/>
+		<volist name="list" id="vo">
+			<tr data-id="{$vo['id']}">
+				<td>{$vo['name']}</td>
+				<td>{$vo['mname']}</td>
+				<td>{$vo['pname']}</td>
+				<td>
+					<a href="javascript:;" title="修改" class="modify"><i class="iconfont">&#xe606;</i></a>
+					<a href="javascript:;" title="操作" class="setting"><i class="iconfont">&#xe607;</i></a>
+					<a href="javascript:;" title="删除" class="delete_btn"><i class="iconfont">&#xe639;</i></a>
+				</td>
+		</tr>
+		</volist>
+		</empty>
+	</tbody>
+</table>

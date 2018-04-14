@@ -1,0 +1,68 @@
+<table class="layui-table" data-page="{$pagecount}">
+	<colgroup>
+		<col width="10">
+		<col width="10">
+		<col width="10">
+		<col width="10">
+		<col width="10">
+		<col width="10">
+		<col width="10">
+		<col width="10">
+		<col width="10">
+		<col width="10">
+	</colgroup>
+	<thead>
+		<tr>
+			<th>项目名称</th>
+			<th>内部代号</th>
+			<th>所属部门</th>
+			<th>项目负责人</th>
+			<th>状态</th>
+			<th>开始时间</th>
+			<th>结束时间</th>
+			<th>密级</th>
+			<th>描述</th>
+			<th>操作</th>
+		</tr>
+	</thead>
+	<tbody>
+		<empty name="list">
+			<tr><td colspan="8" style="text-align:center">暂无项目</td></tr>
+		<else/>
+			<volist name="list" id="vo">
+			<tr data-id="{$vo['id']}">
+				<td><if condition="($dpt eq 0) OR ($vo.department_id eq $dpt) OR ($vo.isview eq 1)">{$vo['name']}<else/>密</if></td>
+				<td><empty name="vo.codename">--<else/>{$vo['codename']}</empty></td>
+				<td>{$vo['dname']}</td>
+				<td>{$vo['mname']}</td>
+				<td>
+					<switch name="vo.status">
+					<case value="0">未开始</case>
+					<case value="1">研发中</case>
+					<case value="2">测试中</case>
+					<case value="3">已上线</case>
+					<case value="-2">已暂停</case>
+					<case value="-3">已关闭</case>
+					<default/>异常
+					</switch>
+				</td>
+				<td>{$vo['start_time']|format_date}</td>
+				<td>{$vo['end_time']|format_date}</td>
+				<td><eq name="vo.isview" value="1">公开<else/>部门可见</eq></td>
+				<td class="details-content" data-title="{$vo['description']}">{$vo['description']}</td>
+				<td>
+					<if condition="($dpt eq 0) OR ($vo.department_id eq $dpt)">
+					<a href="{:U('details', array('id' => $vo['id'], 'hashpage' => $hashpage))}" title="修改" class="modify"><i class="iconfont">&#xe606;</i></a>
+					<a href="javascript:;" title="操作" class="setting"><i class="iconfont">&#xe607;</i></a>
+					<a href="javascript:;" title="删除" class="delete_btn"><i class="iconfont">&#xe639;</i></a>
+					<else/>
+					<a href="javascript:;" title="修改"><i class="iconfont iconfont-disabled">&#xe606;</i></a>
+					<a href="javascript:;" title="操作"><i class="iconfont iconfont-disabled">&#xe607;</i></a>
+					<a href="javascript:;" title="删除"><i class="iconfont iconfont-disabled">&#xe639;</i></a>
+					</if>
+				</td>
+			</tr>
+			</volist>
+		</empty>
+	</tbody>
+</table>

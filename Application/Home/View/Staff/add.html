@@ -1,0 +1,97 @@
+<extend name="Public:back"/>
+<block name="title">成员管理</block>
+<block name="content">
+<div class="layui-body">
+	<div class="site-tips">
+		<p>成员属性与级别并未按照实际职务大小而是根据本系统实际需要进行设置</p>
+	</div>
+	<fieldset class="layui-elem-field layui-field-title">
+		<legend>添加成员</legend>
+	</fieldset>
+	<div class="layui-form">
+		<form id="addform">
+		<div class="layui-form-item">
+    		<label class="layui-form-label">姓名</label>
+    		<div class="layui-input-inline">
+      			<input type="text" class="layui-input" name="member_name"  lay-verify="required"/>
+    		</div>
+ 		</div>
+ 		<div class="layui-form-item">
+    		<label class="layui-form-label">账号</label>
+    		<div class="layui-input-inline">
+      			<input type="text" class="layui-input" name="member_account" lay-verify="required|<empty name='emailpos'>email</empty>"/>
+    		</div>
+    		<div class="layui-form-mid layui-word-aux accountmsg" data-pos="{$emailpos}" data-pwd="{$defaultpwd}">{$emailpos}</div>
+ 		</div>
+ 		<div class="layui-form-item">
+    		<label class="layui-form-label">部门</label>
+    		<div class="layui-input-inline">
+      			<select lay-verify="required" lay-search name="department">
+       				<option value=""></option>
+       				<volist name="dpat" id="vo">
+		        		<option value="{$vo['id']}">{$vo['name']}</option>
+		        	</volist>
+      			</select>
+    		</div>
+ 		</div>
+ 		<div class="layui-form-item">
+    		<label class="layui-form-label">属性</label>
+    		<div class="layui-input-inline">
+      			<select lay-verify="required" name="member_type">
+      				<option value=""></option>
+		          	<option value="1">产品</option>
+		          	<option value="2">设计</option>
+		          	<option value="3">开发</option>
+		          	<option value="4">测试</option>
+		          	<option value="5">普通</option>
+      			</select>
+    		</div>
+ 		</div>
+ 		<div class="layui-form-item">
+    		<label class="layui-form-label">职称</label>
+    		<div class="layui-input-inline">
+      			<input type="text" class="layui-input" lay-verify="required" name="member_job"/>
+    		</div>
+ 		</div>
+ 		<div class="layui-form-item">
+    		<label class="layui-form-label">电话</label>
+    		<div class="layui-input-inline">
+      			<input type="text" class="layui-input" lay-verify="required|phone" name="cellphone"/>
+    		</div>
+    		<div class="layui-form-mid layui-word-aux">仅支持手机号</div>
+ 		</div>
+ 		<div class="layui-form-item">
+    		<label class="layui-form-label">QQ</label>
+    		<div class="layui-input-inline">
+      			<input type="text" class="layui-input" name="qq"/>
+    		</div>
+    		<div class="layui-form-mid layui-word-aux">非必填</div>
+ 		</div>		
+ 		<div class="layui-form-item">
+    		<label class="layui-form-label">级别</label>
+    		<div class="layui-input-block">
+    			<foreach name="lvl" item="vo">
+    				<input type="radio" name="level" value="{$vo.id}" title="{$vo.name}" data-tips="{$vo.tips}" lay-filter="levelsel" <if condition="$ulevel neq 0 AND $ulevel egt $vo['id']">disabled</if>>
+    			</foreach>
+    		</div>
+    		<div class="tips-select"></div>
+ 		</div>
+ 		<!-- <div class="layui-form-item">
+    		<label class="layui-form-label">备注</label>
+    		<div class="layui-input-block wid810">
+      			<textarea class="layui-textarea"></textarea>
+    		</div>
+ 		</div> -->
+ 		</form>
+  		<div class="layui-form-item">
+    		<div class="layui-input-block">
+      			<button type="button" class="layui-btn" data-url="{:U('saveAdd')}" data-reload="{:U('index')}" lay-submit lay-filter="saveBtn">提交</button>
+      			<button type="button" class="layui-btn layui-btn-primary returnBtn" data-reload="{:U('index')}">返回</button>
+    		</div>
+  		</div>		
+	</div>
+</div>
+</block>
+<block name="script">
+<js href="__PUBLIC__/js/Staff/add.js"/>
+</block>

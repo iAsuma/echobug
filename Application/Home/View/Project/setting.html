@@ -1,0 +1,41 @@
+<div class="project-settings layui-form">
+	<if condition="$pjt.status eq -2">
+	<div class="layui-form-item paused">已暂停</div>
+	<elseif condition="$pjt.status eq -3"/>
+	<div class="layui-form-item paused">已关闭</div>
+	<else/>
+	<div class="layui-form-item step">
+		<span <egt name="pjt.status" value="0">class="blue"</egt>>项目创建<em></em></span> 
+		<span <egt name="pjt.status" value="1">class="blue"</egt>>研发中<em></em></span>
+		<span <egt name="pjt.status" value="2">class="blue"</egt>>测试中<em></em></span> 
+		<span <eq name="pjt.status" value="3">class="blue"</eq>>已上线</span>
+	</div>
+	</if>
+	<div class="layui-form-item">
+		<input type="checkbox" name="status" title="暂停" value="-2" <eq name="pjt.status" value="-2">checked</eq> lay-filter="porc"> 
+		<input type="checkbox" name="status" title="关闭" value="-3" <eq name="pjt.status" value="-3">checked</eq> lay-filter="porc">
+	</div>
+	<div class="layui-form-item switch-checkbox">
+		<if condition="$pjt.status eq 0">
+		<label class="layui-form-label">进入研发阶段</label>
+		<div class="layui-input-block">
+			<input type="checkbox" name="status" lay-skin="switch" value="1" lay-text="ON|OFF" lay-filter="stepchange">
+		</div>
+		<elseif condition="$pjt.status eq 1"/>
+		<label class="layui-form-label">进入测试阶段</label>
+		<div class="layui-input-block">
+			<input type="checkbox" name="status" lay-skin="switch" value="2" lay-text="ON|OFF" lay-filter="stepchange">
+		</div>
+		<elseif condition="$pjt.status eq 2"/>
+		<label class="layui-form-label">项目上线</label>
+		<div class="layui-input-block">
+			<input type="checkbox" name="status" lay-skin="switch" value="3" lay-text="ON|OFF" lay-filter="stepchange">
+		</div>
+		</if>
+	</div>
+	<input type="hidden" name="project_id" value="{$pjt.id}"/>
+	<div class="layui-layer-btn">
+		<a href="javascript:;" class="layui-layer-btn0" lay-submit lay-filter="saveBtn" data-url="{:U('setStatus')}">确定</a> 
+		<a href="javascript:;" class="layui-layer-btn1">取消</a>
+	</div>
+</div>

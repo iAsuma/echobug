@@ -1,0 +1,63 @@
+<table class="layui-table" data-page="{$pagecount}">
+	<colgroup>
+		<col width="7">
+		<col width="16">
+		<col width="10">
+		<col width="10">
+		<col width="10">
+		<col width="6">
+		<col width="15">
+		<col width="15">
+		<col width="6">
+		<col width="5">
+	</colgroup>
+	<thead>
+		<tr>
+			<th>编号</th>
+			<th>bug摘要</th>
+			<th>所属模块</th>
+			<th>所属项目</th>
+			<th>反馈人</th>
+			<th>权重</th>
+			<th>反馈时间</th>
+			<th>最后更新时间</th>
+			<th>状态</th>
+			<th>操作</th>
+		</tr>
+	</thead>
+	<tbody>
+		<empty name="list">
+			<tr><td colspan="10" style="text-align:center;">暂无数据</td></tr>
+		<else/>
+		<volist name="list" id="vo">
+		<tr>
+			<td>{$vo['id']}</td>
+			<td class="details-content" data-title="{$vo['summary']}">{$vo['summary']}</td>
+			<td>{$vo['modname']}</td>
+			<td><if condition="($vo.codename eq '' OR $vo.codename eq null)">{$vo['pname']}<else/>{$vo['codename']}</if></td>
+			<td>{$vo['fromname']}</td>
+			<td>
+				<switch name="vo.weight">
+				<case value="1">加急</case>
+				<case value="2">优先</case>
+				<case value="3">严重</case>
+				<case value="4">一般</case>
+				<case value="5">细节</case>
+				</switch>
+			</td>
+			<td>{$vo['create_time']|date='Y-m-d H:i:s', ###}</td>
+			<td>{$vo['finall_time']|date='Y-m-d H:i:s', ###}</td>
+			<td <eq name="vo.status" value="-2">class="mark-tips" data-title="关闭理由：{$vo['note']}"</eq>>
+				<switch name="vo.status">
+				<case value="1">已处理</case>
+				<case value="-2">已关闭</case>
+				</switch>
+			</td>
+			<td>
+				<a href="{:U('viewbug', array('id' => $vo['id'], 'hashpage' => $hashpage))}" title="查看"><i class="iconfont">&#xe605;</i></a>
+			</td>
+		</tr>
+		</volist>
+		</empty>
+	</tbody>
+</table>

@@ -1,0 +1,71 @@
+<extend name="Public:back"/>
+<block name="title">模块管理</block>
+<block name="content">
+<div class="layui-body">
+	<fieldset class="layui-elem-field layui-field-title">
+		<legend>新增模块</legend>
+	</fieldset>
+	<div class="add-module">
+		<div class="layui-form">
+			<form id="addform">
+			<div class="layui-form-item">
+	    		<label class="layui-form-label">模块名称</label>
+	    		<div class="layui-input-inline">
+	      			<input type="text" class="layui-input" name="module_name" lay-verify="required"/>
+	    		</div>
+	 		</div>
+			<div class="layui-form-item">
+	    		<label class="layui-form-label">所属项目</label>
+	    		<div class="layui-input-inline" id="pjt_sel" data-url="{:U('memberlist')}">
+	      			<select name="project" class="takepjt" lay-search data-utype="{$utype}" lay-filter="projectChange" lay-verify="required">
+	      				<empty name="pjt">
+	      					<option value="">无</option>
+	      				<else/>
+	      					<option value="">可输入搜索</option>
+	      					<volist name="pjt" id="vo">
+	      					<option value="{$vo['id']}">{$vo['name']}</option>
+	      					</volist>
+	      				</empty>
+	      			</select>
+	    		</div>
+	 		</div>
+	 		<div class="layui-form-item">
+	    		<label class="layui-form-label">模块负责人</label>
+	    		<div class="layui-input-inline" id="director_sel">
+	      			<select name="director" lay-search lay-verify="required">
+	      				<empty name="members">
+	      					<option value="">无</option>
+	      				<else/>
+	      					<option value="">可输入搜索</option>
+	      					<volist name="members" id="vo">
+	      					<option value="{$vo['id']}">{$vo['name']}</option>
+	      					</volist>
+	      				</empty>
+	      			</select>
+	    		</div>
+	 		</div>
+	 		</form>
+	  		<div class="layui-form-item">
+	    		<div class="layui-input-block">
+	      			<button class="layui-btn" type="button" id="addMoudle" data-url="{:U('saveAdd')}" data-reload="{:U('index')}" lay-submit lay-filter="saveBtn">提交</button>
+	      			<button type="button" class="layui-btn layui-btn-primary" onclick="window.location.href = '{:U('index')}'">返回</button>
+	    		</div>
+	  		</div>
+		</div>
+		<div class="module-item">
+			<ul class="mod-list now-mod" data-url="{:U('delLatestMod')}"></ul>
+			<notempty name="hismod">
+			<div class="mod-tit">最近添加</div>
+			<ul class="mod-list">
+				<volist name="hismod" id="vo">
+					<li class="new"><span>{$vo['name']}</span><span>{$vo['pname']}</span><span>{$vo['mname']}</span></li>
+				</volist>
+			</ul>
+			</notempty>
+		</div>
+	</div>
+</div>
+</block>
+<block name="script">
+<js href="__PUBLIC__/js/Module/add.js"/>
+</block>

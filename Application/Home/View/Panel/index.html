@@ -1,0 +1,78 @@
+<extend name="Public:front"/>
+<block name="title">面板</block>
+<block name="content">
+<div class="panel">
+	<div class="panel-item">
+		<h2>正在进行的项目</h2>
+		<a href="javascript:;" class="ques"><i class="iconfont">&#xe603;</i></a>
+		<div class="tooltips">
+			<em class="tips-arrow"></em>
+			<div class="tips-box">
+				<ul class="tips-list">
+					<li>只会显示研发中和测试中的项目；</li>
+					<li>只会显示最先创建的三个项目。</li>
+				</ul>
+			</div>
+		</div>
+		<ul class="ongoing-projects clearfix" id="">
+			<empty name="pjt">
+			<li><div><span>没有进行中的项目</span></div></li>
+			<else/>
+			<volist name="pjt" id="vo">
+			<li><div><span>{$vo['name']}</span></div></li>
+			</volist>
+			</empty>
+		</ul>
+	</div>
+	<div class="panel-item">
+		<h2>实时统计</h2>
+		<a href="javascript:;" class="ques"><!-- <i class="iconfont">&#xe603;</i> --></a>
+		<div class="tooltips">
+			<em class="tips-arrow"></em>
+			<div class="tips-box">
+				<ul class="tips-list">
+					<li>
+						<span class="tips-left"></span>
+						<span class="tips-right"></span>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<ul class="statistic clearfix">
+			<li>
+				<p>未处理的</p>
+				<p><a href="javascript:;" id="undone">0</a></p>
+			</li>
+			<li>
+				<p>今日未处理的</p>
+				<p><a href="javascript:;" id="today_undone">0</a></p>
+			</li>
+			<li>
+				<p>昨日已处理</p>
+				<p><a href="javascript:;" id="last_done">0</a></p>
+			</li>
+			<li>
+				<p>今日已处理</p>
+				<p><a href="javascript:;" id="today_done">0</a></p>
+			</li>
+			<li>
+				<p>昨日我反馈的</p>
+				<p><a href="javascript:;" id="last_mysend">0</a></p>
+			</li>
+		</ul>
+	</div>
+	<div class="panel-item">
+		<h2>累计统计</h2>
+		<div class="cum-statistic">
+			<div id="graphdiv" style="width:100%;height:400px;"></div>
+		</div>
+	</div>
+</div>
+<input type="hidden" name="report" id="report" data-url="{:U('indexReport')}">
+</block>
+<block name="script">
+<js href="__PUBLIC__/js/z-third/echarts/echarts.min.js" />
+<js href="__PUBLIC__/js/z-third/echarts/macarons.js" />
+<js href="__PUBLIC__/js/Panel/showcharts.js" />
+<js href="__PUBLIC__/js/Panel/index.js"/>
+</block>

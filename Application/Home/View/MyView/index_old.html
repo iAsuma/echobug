@@ -1,0 +1,27 @@
+<extend name="Public:front"/>
+<block name="title">我的视图</block>
+<block name="content">
+<div class="view-box">
+	<div class="view-project">
+		<div class="layui-form">
+			<!-- <select name="project" id="proBtn"  lay-filter="demo">
+        		<option value="6">全部项目</option>
+      		</select> -->
+		</div>
+      	<a href="{:U('feedback')}" class="layui-btn layui-btn-small">反馈BUG</a>
+	</div>
+	<div class="view-content" id="content" data-url="{:U('content')}">
+		<h2>待处理</h2>
+		<div class="layui-form"><p class="no-data">数据正则加载，请稍后。。。</p></div>
+		<h2>已处理</h2>
+		<div class="layui-form"><p class="no-data">数据正则加载，请稍后。。。</p></div>
+		<h2>全部</h2>
+		<div class="layui-form"><p class="no-data">数据正则加载，请稍后。。。</p></div>
+		<h2>我反馈的</h2>
+		<div class="layui-form"><p class="no-data">数据正则加载，请稍后。。。</p></div>
+	</div>
+</div>
+</block>
+<block name="script">
+<js href="__PUBLIC__/js/MyView/index.js"/>
+</block>
