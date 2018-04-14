@@ -29,8 +29,4 @@ define('BIND_MODULE','Home');
 // 引入ThinkPHP入口文件
 require './ThinkPHP/ThinkPHP.php';
 
-<<<<<<< HEAD
 // 亲^_^ 后面不需要任何代码了 就是如此简单
-=======
-// 亲^_^ 后面不需要任何代码了 就是如此简单
->>>>>>> 9a12c3167b239a8eed39afe75e1bb7d62ee6a345

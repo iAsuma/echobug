@@ -224,11 +224,6 @@ class UploadFile {//类定义开始
             $savePath = $this->savePath;
         // 检查上传目录
         if(!is_dir($savePath)) {
-<<<<<<< HEAD
-			//var_dump($savePath);die;
-			var_dump(mkdir($savePath,0777,true));die;
-=======
->>>>>>> 9a12c3167b239a8eed39afe75e1bb7d62ee6a345
             // 尝试创建目录
             if(!mkdir($savePath,0777,true)){
                 $this->error  =  '上传目录'.$savePath.'不存在';
