@@ -1,7 +1,7 @@
 <?php
 return array(
     'DB_TYPE' => 'mysql', // 数据库类型
-    'DB_HOST' => 'bdm271635283.my3w.com', // 服务器地址
+    'DB_HOST' => 'bdm271635283.my3w.com-1', // 服务器地址
     'DB_NAME' => 'bdm271635283_db', // 数据库名
     'DB_USER' => 'bdm271635283', // 用户名
     'DB_PWD' => 'lsq890927', // 密码
